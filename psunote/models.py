@@ -50,3 +50,23 @@ class Note(db.Model):
 
     created_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
     updated_date = mapped_column(sa.DateTime(timezone=True), server_default=func.now())
+
+    def update_note(self, title, description, tags):
+        self.title = title
+        self.description = description
+        self.tags = []
+
+        for tag_name in tags:
+            tag = (
+            db.session.execute(db.select(Tag).where(Tag.name == tag_name))
+            .scalars()
+            .first()
+        )
+
+        if not tag:
+            tag = Tag(name=tag_name)
+            db.session.add(tag)
+
+        self.tags.append(tag)
+
+        self.updated_date = func.now()

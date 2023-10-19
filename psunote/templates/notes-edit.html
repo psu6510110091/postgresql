@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Edit Note: {{ note.title }}{% endblock %}
+{% block body %}
+  <div class="container mt-5">
+    <div class="col-md-6">
+      <h2 class="mb-4">Edit</h2>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{ form.title.data }}">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="6">{{ form.description.data }}</textarea>
+        </div>
+        <div class="mb-3">
+          <label for="tags" class="form-label">Tags</label>
+          <input type="text" class="form-control" id="tags" name="tags" value="{{ form.tags.data }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
