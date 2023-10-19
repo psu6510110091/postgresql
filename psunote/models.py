@@ -70,3 +70,6 @@ class Note(db.Model):
         self.tags.append(tag)
 
         self.updated_date = func.now()
+
+    def delete_note(self):
+        db.session.delete(self)

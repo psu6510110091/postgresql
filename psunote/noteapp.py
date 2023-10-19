@@ -96,5 +96,16 @@ def notes_edit(note_id):
 
     return flask.render_template("notes-edit.html", note=note, form=form)
 
+@app.route("/notes/<int:note_id>/delete", methods=["POST"])
+def notes_delete(note_id):
+    db = models.db
+    note = db.session.query(models.Note).filter_by(id=note_id).first()
+
+    if note:
+        note.delete_note()
+        db.session.commit()
+
+    return redirect(flask.url_for("index"))
+
 if __name__ == "__main__":
     app.run(debug=True)
